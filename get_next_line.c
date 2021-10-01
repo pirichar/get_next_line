@@ -75,7 +75,7 @@ int main()
 {
 	int fd;
 	int ret;
-	static char *buf;
+	char *buf;
    
 	buf = malloc(sizeof(char) *	BUFFER_SIZE + 1);
 
