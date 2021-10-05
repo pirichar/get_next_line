@@ -3,6 +3,7 @@
 #include <sys/types.h>
 #include <sys/stat.h>
 #include <fcntl.h>
+#include <stdio.h>
 
 //int read(int fd, char *buf, int count)
 //fd = fd from where it reads
@@ -33,64 +34,109 @@
  */
 
 /*to do list :
- * Take as an example a file to do the whole thing then just add an exception to read the strdin (fd 2 or 3)
+ * Take as an example a file to do the whole thing then just add an 
+ * exception to read the strdin (fd 2 or 3)
  * My function need to print out only the first string before I hit a return 
  * Since my function needs to get call in a loop it should only return one line at a time always
- * I need to store the remains of my buffer into someting and clear that before I try to read again the next iteration
+ * I need to store the remains of my buffer into someting and clear 
+ * that before I try to read again the next iteration
  * */
 
-#define BUFFER_SIZE 4096
+//#define BUFFER_SIZE 4096
+//
+int	ft_strlen(const char *s)
+{
+	int	i;
+
+	i = 0;
+	while(s[i])
+		i++;
+	return (i);
+}
+char	*ft_strchr(const char *s, int c)
+{
+	unsigned char	c2;
+
+	c2 = c;
+	while (*s != c2 && *s)
+		s++;
+	if (*s == c2)
+		return ((char *)s);
+	return (0);
+}
 
 char *get_next_line(int fd)
 {
-	char		output;
-	static char	*tmp;
-	int			ret;
-	int			i;
+	static char	*output;
+	char		*tmp = NULL;
+	char		*rtn;
+	int		ret;
+	int		i;
+	int		j;
 
-	output = malloc(sizeof(char) * BUFFER_SIZE + 1);
+	if(!output)
+		output = malloc(sizeof(char) * 4000 + 1);
+			if(!output)
+				return (NULL);
+	if(!tmp)
+		tmp = malloc(sizeof(char) * 4000 + 1);
+			if(!tmp)
+				return (NULL);
 	i = 0;
-	ret = read(fd,tmp,BUFFER_SIZE);
-	while(tmp[i] != '\n')
-		output[i] = tmp[i];
-//	tmp = *(tmp) + i;
-	return (output);
-}
-
-static void	ft_putchar(char c)
-{
-	write(1, &c, 1);
-}
-
-static void	ft_putstr(char *str)
-{
-	int i;
-
+	//here I read into fd and I get everything 
+	while ((ret = read(fd,tmp,BUFFER_SIZE)) != 0)
+	{
+		while(*tmp)
+		{
+			output[i] = *tmp;
+			i++;
+			tmp++;
+		}
+		tmp[ret] = '\0';
+	}
+//	here I copy from output to rtn untill I hit my new line
+//	then i add the new line
 	i = 0;
-	while (str[i])
-		ft_putchar(str[i]);
+	rtn = malloc(sizeof(char) * 4000 + 1);
+	while(*output != '\n')
+	{
+		rtn[i] = *output;
+		i++;
+		output++;
+	}
+	rtn[i] = '\n';
+	//Here I move my output pointer so it points
+	//at the right place which is after the \n 
+	j = 0;
+	while(output[j] == '\n')
+		j++;
+	*output = *(output) + j;
+	return (rtn);
 }
+
 #include <stdio.h>
 int main()
 {
 	int fd;
-	int ret;
-	char *buf;
-   
-	buf = malloc(sizeof(char) *	BUFFER_SIZE + 1);
+	char *test;
+	int i;
 
+	i = 0;
 	//Here I just open my file with readonly and place the output of open in the int fd with the protection bellow
 	fd = open("test", O_RDONLY);
 	if (fd == -1)
 		return (1);
-	//here I read into my FD and I stock this into my buffer buf . I read BUFFER SIZE into the fd
-	ret = read(fd, buf, BUFFER_SIZE);
-		ft_putstr(get_next_line(fd));
-	//here I just nul terminate my string;
-//	buf[ret] = '\0'; 
-//	printf("This is my buf = %s\n", buf);
-	
-	free(buf);
+	test = malloc(sizeof(char) * (BUFFER_SIZE + 1));
+	if(test == NULL)
+		return (1);	
+	printf("This is me using my function to print out a sentence after opening fd with read\n");
+	while(i < 3)
+	{
+	test = get_next_line(fd);
+	printf("%s", test);
+	i++;
+	}
+	free (test);
 }
 
 
