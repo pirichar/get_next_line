@@ -6,7 +6,7 @@
 /*   By: pirichar <pirichar@student.42quebec>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/05 16:07:50 by pirichar          #+#    #+#             */
-/*   Updated: 2021/10/05 16:36:13 by pirichar         ###   ########.fr       */
+/*   Updated: 2021/10/06 10:05:32 by pirichar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "get_next_line.h"
@@ -36,19 +36,7 @@ char	*ft_strjoin(char *s1, const char *s2)
 		j++;
 	}
 	str[i] = '\0';
-	//if (s1)
-	//	free (s1);
 	return (str);
-}
-
-size_t	ft_strlen(const char *str)
-{
-	size_t	i;
-
-	i = 0;
-	while (str[i])
-		i++;
-	return (i);
 }
 
 char	*ft_strchr(const char *s, int c)
@@ -77,7 +65,6 @@ char	*ft_strdup(const char *s1)
 	*(str + ft_strlen(s1)) = '\0';
 	return (str);
 }
-
 
 size_t	ft_strlcpy(char *dst, const char *src, size_t size)
 {
@@ -125,4 +112,3 @@ char	*ft_substr(const char *s, unsigned int start, size_t len)
 	str[i] = '\0';
 	return (str);
 }
-
