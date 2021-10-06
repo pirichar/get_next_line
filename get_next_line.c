@@ -6,7 +6,7 @@
 /*   By: pirichar <pirichar@student.42quebec>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/06 08:28:10 by pirichar          #+#    #+#             */
-/*   Updated: 2021/10/06 17:23:04 by pirichar         ###   ########.fr       */
+/*   Updated: 2021/10/06 17:41:26 by pirichar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,10 @@ char	*next_line(int fd, int ret, char *buf, char *saved)
 	ret = read(fd, buf, BUFFER_SIZE);
 	buf[ret] = '\0';
 	if(buf[0] == '\0')
+	{
+		free (saved);
 		return (NULL);
+	}
 	tmp = ft_strjoin(saved, buf);
 	free (saved);
 	saved = tmp;
