@@ -6,7 +6,7 @@
 /*   By: pirichar <pirichar@student.42quebec>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/06 08:28:10 by pirichar          #+#    #+#             */
-/*   Updated: 2021/10/06 14:42:53 by pirichar         ###   ########.fr       */
+/*   Updated: 2021/10/06 17:23:04 by pirichar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,14 +43,14 @@ char	*next_line(int fd, int ret, char *buf, char *saved)
 
 	ret = read(fd, buf, BUFFER_SIZE);
 	buf[ret] = '\0';
+	if(buf[0] == '\0')
+		return (NULL);
 	tmp = ft_strjoin(saved, buf);
 	free (saved);
 	saved = tmp;
 	if (ret < BUFFER_SIZE)
 	{
 		ret = read(fd, buf, BUFFER_SIZE);
-		if (ret == -1)
-			return NULL;	
 		buf[ret] = '\0';
 		tmp = ft_strjoin(saved, buf);
 		free (saved);
@@ -77,17 +77,16 @@ char	*get_next_line(int fd)
 	char		buf[BUFFER_SIZE + 1];
 	int			i;
 	if (!saved)
-	{	
-		saved = malloc(sizeof(char) * BUFFER_SIZE + 1);
-		if (!saved)
-			return (NULL);
-	}
+		saved = ft_strdup("");
 	ret = 1;
 	i = 0;
+	//I NEED TO FIND A WAY TO STOP THIS LOOP IF I DONT FIND A NEW LINE OR IF THE FILE IS EMPTY
 	while (nl_find(saved) == 0)
+	{
 		saved = next_line(fd, ret, buf, saved);
-	if (!saved)
-		return NULL;
+		if (saved == NULL)
+			return (NULL);
+	}
 	while (saved[i] && saved[i] != '\n')
 		i++;
 	line = ft_substr(saved, 0, i + 1);
