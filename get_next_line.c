@@ -6,7 +6,7 @@
 /*   By: pirichar <pirichar@student.42quebec>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/06 08:28:10 by pirichar          #+#    #+#             */
-/*   Updated: 2021/10/06 14:42:53 by pirichar         ###   ########.fr       */
+/*   Updated: 2021/10/06 16:10:57 by pirichar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,12 +76,9 @@ char	*get_next_line(int fd)
 	int			ret;
 	char		buf[BUFFER_SIZE + 1];
 	int			i;
-	if (!saved)
-	{	
-		saved = malloc(sizeof(char) * BUFFER_SIZE + 1);
-		if (!saved)
-			return (NULL);
-	}
+
+	if(!saved)
+		saved = ft_strdup("");
 	ret = 1;
 	i = 0;
 	while (nl_find(saved) == 0)
