@@ -83,7 +83,6 @@ char	*get_next_line(int fd)
 		saved = ft_strdup("");
 	ret = 1;
 	i = 0;
-	//I NEED TO FIND A WAY TO STOP THIS LOOP IF I DONT FIND A NEW LINE OR IF THE FILE IS EMPTY
 	while (nl_find(saved) == 0)
 	{
 		saved = next_line(fd, ret, buf, saved);
