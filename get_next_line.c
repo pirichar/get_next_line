@@ -17,6 +17,8 @@ int	nl_find(char *str)
 	int	i;
 
 	i = 0;
+	if (!str)
+		return (0);
 	while (str[i] != '\n' && str[i])
 	{
 		i++;
@@ -37,9 +39,10 @@ size_t	ft_strlen(const char *str)
 	return (i);
 }
 
-char	*next_line(int fd, int ret, char *buf, char *saved)
+char	*next_line(int fd, char *buf, char *saved)
 {
 	char	*tmp;
+	int	ret;
 
 	ret = read(fd, buf, BUFFER_SIZE);
 	buf[ret] = '\0';
@@ -53,8 +56,6 @@ char	*next_line(int fd, int ret, char *buf, char *saved)
 	saved = tmp;
 	if (ret < BUFFER_SIZE)
 	{
-		ret = read(fd, buf, BUFFER_SIZE);
-		buf[ret] = '\0';
 		tmp = ft_strjoin(saved, buf);
 		free (saved);
 		saved = tmp;
@@ -75,17 +76,15 @@ char	*free_stuff(char *saved, int i)
 char	*get_next_line(int fd)
 {
 	char		*line;
-	static char	*saved;
-	int			ret;
+	static char	*saved = NULL;
 	char		buf[BUFFER_SIZE + 1];
 	int			i;
 	if (!saved)
 		saved = ft_strdup("");
-	ret = 1;
 	i = 0;
 	while (nl_find(saved) == 0)
 	{
-		saved = next_line(fd, ret, buf, saved);
+		saved = next_line(fd, buf, saved);
 		if (saved == NULL)
 			return (NULL);
 	}

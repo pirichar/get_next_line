@@ -26,7 +26,7 @@ size_t	ft_strlcpy(char *dst, const char *src, size_t size);
 char	*ft_substr(const char *s, unsigned int start, size_t len);
 
 int		nl_find(char *str);
-char	*next_line(int fd, int ret, char *buf, char *saved);
+char	*next_line(int fd, char *buf, char *saved);
 char	*get_next_line(int fd);
 
 #endif

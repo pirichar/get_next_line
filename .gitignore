@@ -2,8 +2,8 @@
 .DS_Store
 .vscode
 crapversions
-gnlTester
 test
 test2
 a.out
 *.swp
+gnlTester
