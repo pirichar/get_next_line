@@ -6,7 +6,7 @@
 /*   By: pirichar <pirichar@student.42quebec>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/06 09:13:52 by pirichar          #+#    #+#             */
-/*   Updated: 2021/10/12 09:54:31 by pirichar         ###   ########.fr       */
+/*   Updated: 2021/10/12 10:03:29 by pirichar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,6 @@
 char	*ft_strjoin_free(char *s1, char const *s2);
 size_t	strlen_c(char *s, char c);
 char	*ft_strncpy(char *dest, char *src, size_t n);
-static long get_line_len(char **remain, int fd);
 char	*get_next_line(int fd);
 
  

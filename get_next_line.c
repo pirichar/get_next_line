@@ -6,11 +6,14 @@
 /*   By: pirichar <marvin@42quebec.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/12 09:18:29 by pirichar          #+#    #+#             */
-/*   Updated: 2021/10/12 09:57:34 by pirichar         ###   ########.fr       */
+/*   Updated: 2021/10/12 10:09:19 by pirichar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
+#ifndef BUFFER_SIZE
+# define BUFFER_SIZE 4084
+#endif
 
 static long get_line_len(char **remain, int fd)
 {
@@ -59,3 +62,4 @@ char	*get_next_line(int fd)
 		ft_strncpy(remain, &remain[line_len], strlen_c(remain, 0) - line_len + 1);
 	return (current_line);
 }
+
