@@ -6,37 +6,33 @@
 /*   By: pirichar <pirichar@student.42quebec>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/05 16:07:50 by pirichar          #+#    #+#             */
-/*   Updated: 2021/10/06 16:41:55 by pirichar         ###   ########.fr       */
+/*   Updated: 2021/10/12 13:53:21 by pirichar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "get_next_line.h"
 
-char	*ft_strjoin(char *s1, const char *s2)
+char	*ft_strjoin_free(char *s1, char const *s2)
 {
-	char	*str;
+	size_t	tot_len;
+	char	*s_joined;
 	int		i;
-	int		j;
 
 	i = 0;
-	j = 0;
-	if (!s1 || !s2)
+	tot_len = ft_strlen(s1) + ft_strlen((char *)s2) + 1;
+	s_joined = malloc(tot_len);
+	if (!s_joined)
 		return (NULL);
-	str = malloc(sizeof(char) * (ft_strlen(s1) + ft_strlen(s2) + 1));
-	if (str == NULL)
-		return (NULL);
-	while (s1[i])
+	if (s1)
 	{
-		str[i] = s1[i];
-		i++;
+		while (s1[i])
+			*s_joined++ = s1[i++];
+		free (s1);
 	}
-	while (s2[j])
-	{
-		str[i] = s2[j];
-		i++;
-		j++;
-	}
-	str[i] = '\0';
-	return (str);
+	if (s2)
+		while (*s2)
+			*s_joined++ = *s2++;
+	*s_joined++ = 0;
+	return (s_joined - tot_len);
 }
 
 char	*ft_strchr(const char *s, int c)
@@ -97,7 +93,9 @@ char	*ft_substr(const char *s, unsigned int start, size_t len)
 	if (!s)
 		return (NULL);
 	if (start > ft_strlen(s))
+	{
 		return (ft_strdup(""));
+	}
 	if (len > ft_strlen(s))
 		len = ft_strlen(s);
 	str = malloc(sizeof(char) * (len + 1));

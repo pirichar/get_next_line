@@ -6,7 +6,7 @@
 /*   By: pirichar <pirichar@student.42quebec>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/06 08:27:28 by pirichar          #+#    #+#             */
-/*   Updated: 2021/10/06 17:32:08 by pirichar         ###   ########.fr       */
+/*   Updated: 2021/10/12 13:53:23 by pirichar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "get_next_line.h"
@@ -15,7 +15,7 @@
 int main()
 {
 	int fd;
-	int fd2;
+//	int fd2;
 	char *test;
 //	char *test2;
 	int i;
@@ -26,9 +26,9 @@ int main()
 	fd = open("test", O_RDONLY);
 	if (fd == -1)
 		return (1);
-	fd2 = open("test2", O_RDONLY);
+/*	fd2 = open("test2", O_RDONLY);
 	if (fd == -1)
-		return (1);
+		return (1);*/
 
 	test = malloc(sizeof(char) * (BUFFER_SIZE + 1));
 	if(test == NULL)
