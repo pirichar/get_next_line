@@ -11,23 +11,28 @@ size_t	ft_strlen(const char *str);
 size_t	ft_strlcpy(char *dst, const char *src, size_t size);
 char	*ft_strjoin(const char *s1, const char *s2);
 char	*ft_substr(const char *s, unsigned int start, size_t len);
-int     find_c(char *str, char c);
 char	*ft_strchr(const char *s, int c);
-char	*free_stuff(char *saved, int i);
+char	*free_stuff(char *saved, char *new_line);
 
 char    *get_next_line(int fd)
 {
-    static char     *saved;
-    char            buff[BUFFER_SIZE + 1];
-    int             ret;      
-    char            *tmp; 
-    char            *rtn;
-    int             i;
+    static char		*saved;
+    char			buff[BUFFER_SIZE + 1];
+    ssize_t			ret;      
+    char			*tmp; 
+    char			*rtn;
+	char 			*new_line;
 
-    if ( fd < 0)
+    if (fd < 0)
         return (NULL);
-    while ((ret = read(fd, buff, BUFFER_SIZE)) > 0)
+	ret = BUFFER_SIZE;
+    while (ret == BUFFER_SIZE)
     {
+		ret = read(fd, buff, BUFFER_SIZE);
+		if (ret == -1)
+		{
+			return (NULL);
+		}
         buff[ret] = '\0';
         if (saved == NULL)
             saved = ft_strdup(buff);
@@ -37,23 +42,33 @@ char    *get_next_line(int fd)
             free (saved);
             saved = tmp;
         }
-        if (ft_strchr(saved, '\n'))
-            break;
+		new_line = ft_strchr(saved, '\n');
+        if (new_line)
+            break ;
     }
-    rtn = malloc( sizeof(char) * ft_strlen(saved));
-    i = 0;
-    while(saved[i] && saved[i] != '\n')
-        i++;
-    rtn = ft_substr(saved, 0, i + 1);
-	saved = free_stuff(saved, i);
+	if (new_line)
+	{
+	    rtn = ft_substr(saved, 0, (new_line - saved + 1));
+		saved = free_stuff(saved, new_line);
+	}
+	else 
+	{
+		rtn = saved;
+		saved = NULL;
+		if (!*rtn)
+		{
+			free(rtn);
+			rtn = NULL;
+		}
+	}
 	return (rtn);
 }
 
-char	*free_stuff(char *saved, int i)
+char	*free_stuff(char *saved, char *new_line)
 {
 	char	*tmp;
 
-	tmp = ft_substr(saved, i + 1, ft_strlen(saved) - i);
+	tmp = ft_substr(new_line, 1, ft_strlen(new_line));
 	free(saved);
 	saved = tmp;
 	return (saved);
@@ -69,22 +84,6 @@ char	*ft_strchr(const char *s, int c)
 	if (*s == c2)
 		return ((char *)s);
 	return (0);
-}
-
-
-
-int     find_c(char *str, char c)
-{
-    int i;
-
-    i = 0;
-    while (str[i])
-    {
-        if (str[i] == c)
-            return (i + 1);
-        i++;
-    }
-    return (0);
 }
 
 char	*ft_strdup(const char *s1)
