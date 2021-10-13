@@ -6,7 +6,7 @@
 /*   By: pirichar <pirichar@student.42quebec>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/05 16:07:50 by pirichar          #+#    #+#             */
-/*   Updated: 2021/10/12 13:53:21 by pirichar         ###   ########.fr       */
+/*   Updated: 2021/10/13 07:56:33 by pirichar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "get_next_line.h"

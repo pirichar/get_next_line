@@ -6,7 +6,7 @@
 /*   By: pirichar <pirichar@student.42quebec>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/06 08:27:28 by pirichar          #+#    #+#             */
-/*   Updated: 2021/10/12 13:53:23 by pirichar         ###   ########.fr       */
+/*   Updated: 2021/10/12 17:01:30 by pirichar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "get_next_line.h"
@@ -30,9 +30,6 @@ int main()
 	if (fd == -1)
 		return (1);*/
 
-	test = malloc(sizeof(char) * (BUFFER_SIZE + 1));
-	if(test == NULL)
-		return (1);	
 	//	printf("FROM MAIN : Printing first fd %i times = \n", x);
 	while(i < x)
 	{
