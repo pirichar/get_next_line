@@ -21,11 +21,11 @@ char    *get_next_line(int fd)
 	ret = BUFFER_SIZE;
     while (ret == BUFFER_SIZE)
     {
-		ret = read(fd, buff, BUFFER_SIZE);
-		if (ret == -1)
-		{
-			return (NULL);
-		}
+	ret = read(fd, buff, BUFFER_SIZE);
+	if (ret == -1)
+	{
+		return (NULL);
+	}
         buff[ret] = '\0';
         if (saved == NULL)
             saved = ft_strdup(buff);
@@ -35,7 +35,7 @@ char    *get_next_line(int fd)
             free (saved);
             saved = tmp;
         }
-		new_line = ft_strchr(saved, '\n');
+	new_line = ft_strchr(saved, '\n');
         if (new_line)
             break ;
     }
