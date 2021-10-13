@@ -23,7 +23,7 @@ int main()
 
 	i = 0;
 	x = 7;
-	fd = open("test", O_RDONLY);
+	fd = open("fuckyou", O_RDONLY);
 	if (fd == -1)
 		return (1);
 /*	fd2 = open("test2", O_RDONLY);
