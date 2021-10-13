@@ -18,15 +18,16 @@
 # include <stdio.h>
 # include <limits.h>
 
-/*char	*ft_strjoin_free(char *s1, const char *s2);
-size_t	ft_strlen(const char *str);
-char	*ft_strchr(const char *s, int c);
+
 char	*ft_strdup(const char *s1);
+size_t	ft_strlen(const char *str);
 size_t	ft_strlcpy(char *dst, const char *src, size_t size);
+char	*ft_strjoin(const char *s1, const char *s2);
 char	*ft_substr(const char *s, unsigned int start, size_t len);
 
-int		to_find(char *str, char c);
-char	*next_line(int fd, char *saved)*/
 char	*get_next_line(int fd);
+char	*free_stuff(char *saved, char *new_line);
+char	*ft_strchr(const char *s, int c);
+
 
 #endif
