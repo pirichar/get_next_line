@@ -3,14 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pirichar <pirichar@student.42quebec>       +#+  +:+       +#+        */
+/*   By: pirichar <pirichar@student.42quebec.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/06 08:27:28 by pirichar          #+#    #+#             */
-/*   Updated: 2021/10/12 17:01:30 by pirichar         ###   ########.fr       */
+/*   Updated: 2021/10/14 16:14:48 by pirichar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-#include "get_next_line.h"
+
 #include <fcntl.h>
+#include "get_next_line.h"
 
 int main()
 {

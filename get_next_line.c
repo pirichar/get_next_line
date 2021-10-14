@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   get_next_line.c                                    :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: pirichar <pirichar@student.42quebec.com    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/10/14 09:17:02 by pirichar          #+#    #+#             */
+/*   Updated: 2021/10/14 16:17:02 by pirichar         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "get_next_line.h"
 
 /*Calling your function get_next_line in a loop will then allow you to read the text
@@ -6,42 +18,47 @@
  *else to read or if an error has occurred it should return NULL
  *Important: The returned line should include the ’\n’, except if you have reached
 the end of file and there is no ’\n’.*/
+char	*read_file(int fd, char *saved, char **new_line)
+{
+	char			buff[BUFFER_SIZE + 1];
+	ssize_t			ret;
+	char			*tmp;
 
+	ret = BUFFER_SIZE;
+	while (ret == BUFFER_SIZE)
+	{
+		ret = read(fd, buff, BUFFER_SIZE);
+		if (ret == -1)
+			return (NULL);
+		buff[ret] = '\0';
+		if (saved == NULL)
+			saved = ft_strdup(buff);
+		else
+		{
+			tmp = ft_strjoin(saved, buff);
+			free (saved);
+			saved = tmp;
+		}
+		*new_line = ft_strchr(saved, '\n');
+		if (*new_line)
+			break ;
+	}
+	return (saved);
+}
 char    *get_next_line(int fd)
 {
-    static char		*saved;
-    char			buff[BUFFER_SIZE + 1];
-    ssize_t			ret;      
-    char			*tmp; 
+	static char		*saved;
     char			*rtn;
 	char 			*new_line;
 
     if (fd < 0)
         return (NULL);
-	ret = BUFFER_SIZE;
-    while (ret == BUFFER_SIZE)
-    {
-	ret = read(fd, buff, BUFFER_SIZE);
-	if (ret == -1)
-	{
+	saved = read_file(fd, saved, &new_line);
+	if (saved == NULL)
 		return (NULL);
-	}
-        buff[ret] = '\0';
-        if (saved == NULL)
-            saved = ft_strdup(buff);
-        else
-        {
-            tmp = ft_strjoin(saved, buff);
-            free (saved);
-            saved = tmp;
-        }
-	new_line = ft_strchr(saved, '\n');
-        if (new_line)
-            break ;
-    }
 	if (new_line)
 	{
-	    rtn = ft_substr(saved, 0, (new_line - saved + 1));
+		rtn = ft_substr(saved, 0, (new_line - saved + 1));
 		saved = free_stuff(saved, new_line);
 	}
 	else 
