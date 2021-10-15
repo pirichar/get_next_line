@@ -6,18 +6,12 @@
 /*   By: pirichar <pirichar@student.42quebec.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/14 09:17:02 by pirichar          #+#    #+#             */
-/*   Updated: 2021/10/14 16:17:02 by pirichar         ###   ########.fr       */
+/*   Updated: 2021/10/15 09:23:26 by pirichar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 
-/*Calling your function get_next_line in a loop will then allow you to read the text
- *available on the file descriptor one line at a time until the end of it.
- *Your function should return the line that has just been read. If there is nothing
- *else to read or if an error has occurred it should return NULL
- *Important: The returned line should include the ’\n’, except if you have reached
-the end of file and there is no ’\n’.*/
 char	*read_file(int fd, char *saved, char **new_line)
 {
 	char			buff[BUFFER_SIZE + 1];
@@ -45,14 +39,15 @@ char	*read_file(int fd, char *saved, char **new_line)
 	}
 	return (saved);
 }
-char    *get_next_line(int fd)
+
+char	*get_next_line(int fd)
 {
 	static char		*saved;
-    char			*rtn;
-	char 			*new_line;
+	char			*rtn;
+	char			*new_line;
 
-    if (fd < 0)
-        return (NULL);
+	if (fd < 0)
+		return (NULL);
 	saved = read_file(fd, saved, &new_line);
 	if (saved == NULL)
 		return (NULL);
@@ -61,7 +56,7 @@ char    *get_next_line(int fd)
 		rtn = ft_substr(saved, 0, (new_line - saved + 1));
 		saved = free_stuff(saved, new_line);
 	}
-	else 
+	else
 	{
 		rtn = saved;
 		saved = NULL;
