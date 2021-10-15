@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line.c                                    :+:      :+:    :+:   */
+/*   get_next_line_bonus.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: pirichar <pirichar@student.42quebec.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/14 09:17:02 by pirichar          #+#    #+#             */
-/*   Updated: 2021/10/15 11:56:19 by pirichar         ###   ########.fr       */
+/*   Updated: 2021/10/15 12:03:55 by pirichar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get_next_line.h"
+#include "get_next_line_bonus.h"
 
 char	*read_file(int fd, char *saved, char **new_line)
 {
@@ -42,24 +42,24 @@ char	*read_file(int fd, char *saved, char **new_line)
 
 char	*get_next_line(int fd)
 {
-	static char		*saved;
+	static char		*saved[OPEN_MAX];
 	char			*rtn;
 	char			*new_line;
 
 	if (fd < 0)
 		return (NULL);
-	saved = read_file(fd, saved, &new_line);
-	if (saved == NULL)
+	saved[fd] = read_file(fd, saved[fd], &new_line);
+	if (saved[fd] == NULL)
 		return (NULL);
 	if (new_line)
 	{
-		rtn = ft_substr(saved, 0, (new_line - saved + 1));
-		saved = free_stuff(saved, new_line);
+		rtn = ft_substr(saved[fd], 0, (new_line - saved[fd] + 1));
+		saved[fd] = free_stuff(saved[fd], new_line);
 	}
 	else
 	{
-		rtn = saved;
-		saved = NULL;
+		rtn = saved[fd];
+		saved[fd] = NULL;
 		if (!*rtn)
 		{
 			free(rtn);
