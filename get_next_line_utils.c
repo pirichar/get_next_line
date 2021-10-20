@@ -6,7 +6,7 @@
 /*   By: pirichar <pirichar@student.42quebec.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/14 09:14:40 by pirichar          #+#    #+#             */
-/*   Updated: 2021/10/14 16:20:38 by pirichar         ###   ########.fr       */
+/*   Updated: 2021/10/20 11:29:12 by pirichar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ size_t	ft_strlen(const char *str)
 	size_t	i;
 
 	i = 0;
-	while (str[i])
+	while (str && str[i])
 		i++;
 	return (i);
 }
@@ -60,7 +60,7 @@ size_t	ft_strlcpy(char *dst, const char *src, size_t size)
 	return (count);
 }
 
-char	*ft_strjoin(const char *s1, const char *s2)
+char	*ft_strjoin_free(char *s1, const char *s2)
 {
 	char	*str;
 	int		i;
@@ -68,23 +68,23 @@ char	*ft_strjoin(const char *s1, const char *s2)
 
 	i = 0;
 	j = 0;
-	if (!s1 || !s2)
-		return (NULL);
 	str = malloc(sizeof(char) * (ft_strlen(s1) + ft_strlen(s2) + 1));
 	if (str == NULL)
 		return (NULL);
-	while (s1[i])
+	while (s1 && s1[i])
 	{
 		str[i] = s1[i];
 		i++;
 	}
-	while (s2[j])
+	while (s2 && s2[j])
 	{
 		str[i] = s2[j];
 		i++;
 		j++;
 	}
 	str[i] = '\0';
+	if (s1)
+		free (s1);
 	return (str);
 }
 

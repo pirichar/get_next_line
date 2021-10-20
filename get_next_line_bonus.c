@@ -6,7 +6,7 @@
 /*   By: pirichar <pirichar@student.42quebec.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/14 09:17:02 by pirichar          #+#    #+#             */
-/*   Updated: 2021/10/15 12:03:55 by pirichar         ###   ########.fr       */
+/*   Updated: 2021/10/20 11:30:50 by pirichar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,25 +14,22 @@
 
 char	*read_file(int fd, char *saved, char **new_line)
 {
-	char			buff[BUFFER_SIZE + 1];
+	char			*buff;
 	ssize_t			ret;
-	char			*tmp;
 
 	ret = BUFFER_SIZE;
 	while (ret == BUFFER_SIZE)
 	{
+		buff = malloc(sizeof(char) * BUFFER_SIZE + 1);
 		ret = read(fd, buff, BUFFER_SIZE);
 		if (ret == -1)
-			return (NULL);
-		buff[ret] = '\0';
-		if (saved == NULL)
-			saved = ft_strdup(buff);
-		else
 		{
-			tmp = ft_strjoin(saved, buff);
-			free (saved);
-			saved = tmp;
+			free (buff);
+			return (NULL);
 		}
+		buff[ret] = '\0';
+		saved = ft_strjoin_free(saved, buff);
+		free (buff);
 		*new_line = ft_strchr(saved, '\n');
 		if (*new_line)
 			break ;
@@ -46,8 +43,6 @@ char	*get_next_line(int fd)
 	char			*rtn;
 	char			*new_line;
 
-	if (fd < 0)
-		return (NULL);
 	saved[fd] = read_file(fd, saved[fd], &new_line);
 	if (saved[fd] == NULL)
 		return (NULL);
