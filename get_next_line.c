@@ -6,7 +6,7 @@
 /*   By: pirichar <pirichar@student.42quebec.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/14 09:17:02 by pirichar          #+#    #+#             */
-/*   Updated: 2021/10/20 11:29:11 by pirichar         ###   ########.fr       */
+/*   Updated: 2022/04/26 09:37:54 by pirichar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,6 +69,11 @@ char	*free_stuff(char *saved, char *new_line)
 	char	*tmp;
 
 	tmp = ft_substr(new_line, 1, ft_strlen(new_line));
+	if (!*tmp)
+	{
+		free(tmp);
+		tmp = NULL;
+	}
 	free(saved);
 	saved = tmp;
 	return (saved);
