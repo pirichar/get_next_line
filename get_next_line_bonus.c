@@ -6,7 +6,7 @@
 /*   By: pirichar <pirichar@student.42quebec.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/14 09:17:02 by pirichar          #+#    #+#             */
-/*   Updated: 2021/10/20 11:30:50 by pirichar         ###   ########.fr       */
+/*   Updated: 2021/10/21 10:39:32 by pirichar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,8 @@ char	*read_file(int fd, char *saved, char **new_line)
 	while (ret == BUFFER_SIZE)
 	{
 		buff = malloc(sizeof(char) * BUFFER_SIZE + 1);
+		if (!buff)
+			return (NULL);
 		ret = read(fd, buff, BUFFER_SIZE);
 		if (ret == -1)
 		{
